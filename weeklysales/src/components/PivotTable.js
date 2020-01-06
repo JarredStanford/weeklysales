@@ -3,17 +3,16 @@ import * as FlexmonsterReact from 'react-flexmonster/hooks';
 
 function PivotTableHooks(props) {
 
-
     const jsonData = [
         {
-            "week": 1,
+            "Week": 1,
             "2016": 1000,
             "2017": 1300,
             "2018": 1401,
             "2019": 1500
         },
         {
-            "week": 2,
+            "Week": 2,
             "2016": 2000,
             "2017": 2300,
             "2018": 2401,
@@ -35,7 +34,7 @@ function PivotTableHooks(props) {
         ],
         slice: {
             rows: [
-                { uniqueName: "week" }
+                { uniqueName: "Week" }
             ],
             columns: [
                 { uniqueName: "[Measures]" }
