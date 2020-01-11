@@ -1,6 +1,6 @@
 import React from 'react'
 import useForm from "./utils/useForm";
-import { TextInput, Button } from 'evergreen-ui';
+import { TextInput } from 'evergreen-ui';
 import styled from 'styled-components'
 
 const Login = () => {
@@ -28,7 +28,8 @@ const Login = () => {
                 aria-label='password'
                 name='password'
                 type='password' />
-            <Button type='primary' intent='success'>Submit</Button>
+            <ErrorMessage />
+            <SubmitButton />
         </Form>
     )
 }
