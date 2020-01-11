@@ -14,7 +14,8 @@ const SalesForm = props => {
             const newRecord = {
                 year: Number(values.year),
                 week: Number(values.week),
-                amount: Number(values.amount)
+                amount: Number(values.amount),
+                notes: values.notes || ''
             }
             const db = firebase.firestore()
             const apple = db.collection('sales').add(newRecord)
@@ -47,6 +48,12 @@ const SalesForm = props => {
                     value={values.amount || ''}
                     name='amount'
                     type='number' />
+                <TextInput
+                    placeholder='Enter notes...'
+                    onChange={handleChange}
+                    value={values.notes || ''}
+                    name='notes'
+                    type='text' />
                 <ErrorMessage />
                 <SubmitButton />
             </Form>
