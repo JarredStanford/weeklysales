@@ -1,13 +1,13 @@
 import React from 'react'
 
 import useForm from "./utils/useForm";
-import { Pane, TextInput, Button } from 'evergreen-ui'
+import { Pane, TextInput } from 'evergreen-ui'
 import styled from 'styled-components'
 
 const SalesForm = props => {
 
     //Imports form custom hook to handle state, form entry and form submission.
-    const { values, handleChange, handleSubmit, setValues, setError, setLoading } = useForm(log);
+    const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage } = useForm(log);
 
     function log() {
         console.log(values)
@@ -34,7 +34,8 @@ const SalesForm = props => {
                     value={values.amount || ''}
                     name='amount'
                     type='number' />
-                <Button type='primary' intent='success'>Submit</Button>
+                <ErrorMessage />
+                <SubmitButton />
             </Form>
         </Pane>
     )
