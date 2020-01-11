@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-//import { Button, Message } from "semantic-ui-react"
+import { Button, Message } from "semantic-ui-react"
 
 //All form functions and buttons are available in this custom hook. Simply import as seen in EditProfile.
 
@@ -26,7 +26,7 @@ const useForm = callback => {
 		}));
 	};
 
-	/*const SubmitButton = () => {
+	const SubmitButton = () => {
 		return isLoading
 			? <Button loading color="violet">Submit</Button>
 			: <Button type="submit" color="violet">Submit</Button>
@@ -39,15 +39,15 @@ const useForm = callback => {
 				header="Failed to submit form"
 				content="Please make sure all fields are filled out accurately." />
 			: null
-	}*/
+	}
 
 	return {
 		handleChange,
 		handleSubmit,
 		setValues,
 		values,
-		//SubmitButton,
-		//ErrorMessage,
+		SubmitButton,
+		ErrorMessage,
 		setError,
 		setLoading
 	};
