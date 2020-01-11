@@ -1,5 +1,5 @@
 import React from 'react'
-
+import firebase from './firebase'
 import useForm from "./utils/useForm";
 import { Pane, TextInput } from 'evergreen-ui'
 import styled from 'styled-components'
@@ -7,10 +7,23 @@ import styled from 'styled-components'
 const SalesForm = props => {
 
     //Imports form custom hook to handle state, form entry and form submission.
-    const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage } = useForm(log);
+    const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage, setValues } = useForm(insertRecord);
 
-    function log() {
-        console.log(values)
+    async function insertRecord() {
+        try {
+            const newRecord = {
+                year: Number(values.year),
+                week: Number(values.week),
+                amount: Number(values.amount)
+            }
+            const db = firebase.firestore()
+            const apple = db.collection('sales').add(newRecord)
+            setLoading(false)
+        }
+        catch {
+            setError(true)
+            setLoading(false)
+        }
     }
 
     return (
@@ -21,7 +34,7 @@ const SalesForm = props => {
                     onChange={handleChange}
                     value={values.year || ''}
                     name='year'
-                    type='text' />
+                    type='number' />
                 <TextInput
                     placeholder='Enter week...'
                     onChange={handleChange}

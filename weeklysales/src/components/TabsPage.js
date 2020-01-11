@@ -1,5 +1,7 @@
 import React from 'react'
 
+import firebase from './firebase'
+
 import PivotTable from './PivotTable'
 import Chart from './Chart'
 import SalesForm from './SalesForm'
@@ -13,19 +15,22 @@ const TabsPage = () => {
 
     return (
         <>
-            <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
-                {tabs.map((tab, index) => (
-                    <Tab
-                        key={tab}
-                        id={tab}
-                        onSelect={() => setSelectedIndex(index)}
-                        isSelected={index === selectedIndex}
-                        aria-controls={`panel-${tab}`}
-                    >
-                        {tab}
-                    </Tab>
-                ))}
-            </Tablist>
+            <div>
+                <Tablist marginBottom={16} flexBasis={240} marginRight={24}>
+                    {tabs.map((tab, index) => (
+                        <Tab
+                            key={tab}
+                            id={tab}
+                            onSelect={() => setSelectedIndex(index)}
+                            isSelected={index === selectedIndex}
+                            aria-controls={`panel-${tab}`}
+                        >
+                            {tab}
+                        </Tab>
+                    ))}
+                    <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
+                </Tablist>
+            </div>
             <div>
                 <Pane
                     role='tabpanel'

@@ -98,7 +98,7 @@ const Chart = props => {
         dataSource: source
     }
 
-    console.log(props.jsonData)
+    console.log(jsonData)
 
     return (
         <ReactFC {...chartConfigs} />
