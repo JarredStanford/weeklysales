@@ -4,15 +4,14 @@ import firebase from './firebase'
 
 import PivotTable from './PivotTable'
 import Chart from './Chart'
-import SalesForm from './SalesForm'
-import SimpleTable from './Table'
+import Dashboard from './Dashboard'
 
 import { Tablist, Tab, Pane, Paragraph } from 'evergreen-ui'
 
 const TabsPage = () => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0)
-    const tabs = ['Pivot Table', 'Charts', 'Enter Sales', 'Table']
+    const tabs = ['Pivot Table', 'Charts', 'Enter Sales']
 
     return (
         <>
@@ -55,15 +54,7 @@ const TabsPage = () => {
                     aria-hidden={selectedIndex !== 2}
                     display={2 === selectedIndex ? 'block' : 'none'}
                 >
-                    <SalesForm />
-                </Pane>
-                <Pane
-                    role='tabpanel'
-                    aria-labelledby={'Table'}
-                    aria-hidden={selectedIndex !== 3}
-                    display={3 === selectedIndex ? 'block' : 'none'}
-                >
-                    <SimpleTable />
+                    <Dashboard />
                 </Pane>
             </div>
         </>
