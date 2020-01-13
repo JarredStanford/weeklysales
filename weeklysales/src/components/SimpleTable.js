@@ -23,7 +23,7 @@ const SimpleTable = () => {
 
 
     return (
-        <Table flex={1} display="flex" flexDirection="column">
+        <Table flex={1} display="flex" flexDirection="column" >
             <Table.Head>
                 <Table.TextHeaderCell>Year</Table.TextHeaderCell>
                 <Table.TextHeaderCell>Week</Table.TextHeaderCell>

@@ -20,6 +20,7 @@ const SalesForm = props => {
             const db = firebase.firestore()
             const apple = db.collection('sales').add(newRecord)
             setLoading(false)
+            props.setSelectedIndex(3)
         }
         catch {
             setError(true)
@@ -66,4 +67,5 @@ export default SalesForm
 const Form = styled.form`
 display: flex;
 flex-direction: column
-width: 280px`
+width: 280px
+`
