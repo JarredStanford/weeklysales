@@ -23,22 +23,25 @@ const SimpleTable = () => {
 
 
     return (
-        <Table flex={1} display="flex" flexDirection="column" >
-            <Table.Head>
-                <Table.TextHeaderCell>Year</Table.TextHeaderCell>
-                <Table.TextHeaderCell>Week</Table.TextHeaderCell>
-                <Table.TextHeaderCell>Amount</Table.TextHeaderCell>
-            </Table.Head>
-            <Table.Body height={240}>
-                {sales.map(sale => (
-                    <Table.Row isSelectable onSelect={() => alert(sale.notes)}>
-                        <Table.TextCell>{sale.year}</Table.TextCell>
-                        <Table.TextCell>{sale.week}</Table.TextCell>
-                        <Table.TextCell isNumber>{sale.amount}</Table.TextCell>
-                    </Table.Row>
-                ))}
-            </Table.Body>
-        </Table>
+        <div>
+            <button>Add</button>
+            <Table flex={1} display="flex" flexDirection="column" >
+                <Table.Head>
+                    <Table.TextHeaderCell>Year</Table.TextHeaderCell>
+                    <Table.TextHeaderCell>Week</Table.TextHeaderCell>
+                    <Table.TextHeaderCell>Amount</Table.TextHeaderCell>
+                </Table.Head>
+                <Table.Body height={240}>
+                    {sales.map(sale => (
+                        <Table.Row isSelectable onSelect={() => alert(sale.notes)}>
+                            <Table.TextCell>{sale.year}</Table.TextCell>
+                            <Table.TextCell>{sale.week}</Table.TextCell>
+                            <Table.TextCell isNumber>{sale.amount}</Table.TextCell>
+                        </Table.Row>
+                    ))}
+                </Table.Body>
+            </Table>
+        </div>
     )
 }
 
