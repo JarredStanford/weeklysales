@@ -5,13 +5,14 @@ import firebase from './firebase'
 import PivotTable from './PivotTable'
 import Chart from './Chart'
 import Dashboard from './Dashboard'
+import SemanticTable from './SemanticTable'
 
 import { Tablist, Tab, Pane, Paragraph } from 'evergreen-ui'
 
 const TabsPage = () => {
 
     const [selectedIndex, setSelectedIndex] = React.useState(0)
-    const tabs = ['Pivot Table', 'Charts', 'Enter Sales']
+    const tabs = ['Pivot Table', 'Charts']
 
     return (
         <>
@@ -38,7 +39,7 @@ const TabsPage = () => {
                     aria-hidden={selectedIndex !== 0}
                     display={0 === selectedIndex ? 'block' : 'none'}
                 >
-                    <PivotTable />
+                    <SemanticTable />
                 </Pane>
                 <Pane
                     role='tabpanel'
@@ -47,14 +48,6 @@ const TabsPage = () => {
                     display={1 === selectedIndex ? 'block' : 'none'}
                 >
                     <Chart />
-                </Pane>
-                <Pane
-                    role='tabpanel'
-                    aria-labelledby={'Enter Sales'}
-                    aria-hidden={selectedIndex !== 2}
-                    display={2 === selectedIndex ? 'block' : 'none'}
-                >
-                    <Dashboard />
                 </Pane>
             </div>
         </>

@@ -1,10 +1,10 @@
 import React from 'react'
 import firebase from './firebase'
 import useForm from "./utils/useForm";
-import { Pane, TextInput } from 'evergreen-ui'
-import styled from 'styled-components'
 
-const SalesForm = props => {
+import { Table, Input } from 'semantic-ui-react'
+
+const SalesForm = () => {
 
     //Imports form custom hook to handle state, form entry and form submission.
     const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage, setValues } = useForm(insertRecord);
@@ -17,10 +17,10 @@ const SalesForm = props => {
                 amount: Number(values.amount),
                 notes: values.notes || ''
             }
+            console.log(newRecord)
             const db = firebase.firestore()
             const apple = db.collection('sales').add(newRecord)
             setLoading(false)
-            props.setSelectedIndex(3)
         }
         catch {
             setError(true)
@@ -28,44 +28,39 @@ const SalesForm = props => {
         }
     }
 
+    console.log(values)
+
     return (
-        <Pane>
-            <Form onSubmit={handleSubmit}>
-                <TextInput
-                    placeholder='Enter year...'
-                    onChange={handleChange}
-                    value={values.year || ''}
+        <Table.Row >
+            <Table.Cell>
+                <Input
+                    transparent
+                    type='number'
+                    placeholder='enter year...'
                     name='year'
-                    type='number' />
-                <TextInput
-                    placeholder='Enter week...'
-                    onChange={handleChange}
-                    value={values.week || ''}
+                    onChange={handleChange} />
+            </Table.Cell>
+            <Table.Cell>
+                <Input
+                    transparent
+                    type='number'
+                    placeholder='enter week...'
                     name='week'
-                    type='number' />
-                <TextInput
-                    placeholder='Enter amount...'
-                    onChange={handleChange}
-                    value={values.amount || ''}
+                    onChange={handleChange} />
+            </Table.Cell>
+            <Table.Cell>
+                <Input
+                    transparent
+                    type='number'
+                    placeholder='enter amount...'
                     name='amount'
-                    type='number' />
-                <TextInput
-                    placeholder='Enter notes...'
-                    onChange={handleChange}
-                    value={values.notes || ''}
-                    name='notes'
-                    type='text' />
-                <ErrorMessage />
-                <SubmitButton />
-            </Form>
-        </Pane>
+                    onChange={handleChange} />
+            </Table.Cell>
+            <Table.Cell>
+                <button onClick={handleSubmit}>Hi</button>
+            </Table.Cell>
+        </Table.Row>
     )
 }
 
 export default SalesForm
-
-const Form = styled.form`
-display: flex;
-flex-direction: column
-width: 280px
-`
