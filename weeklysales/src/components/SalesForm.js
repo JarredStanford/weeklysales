@@ -4,7 +4,7 @@ import useForm from "./utils/useForm";
 
 import { Table, Input } from 'semantic-ui-react'
 
-const SalesForm = () => {
+const SalesForm = props => {
 
     //Imports form custom hook to handle state, form entry and form submission.
     const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage, setValues } = useForm(insertRecord);
@@ -21,14 +21,13 @@ const SalesForm = () => {
             const db = firebase.firestore()
             const apple = db.collection('sales').add(newRecord)
             setLoading(false)
+            props.setNewCell(false)
         }
         catch {
             setError(true)
             setLoading(false)
         }
     }
-
-    console.log(values)
 
     return (
         <Table.Row >
