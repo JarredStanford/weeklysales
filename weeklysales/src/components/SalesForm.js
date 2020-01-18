@@ -13,7 +13,7 @@ const SalesForm = props => {
         try {
             const newRecord = {
                 year: Number(values.year),
-                week: Number(values.week),
+                date: values.date,
                 amount: Number(values.amount),
                 notes: values.notes || ''
             }
@@ -44,7 +44,7 @@ const SalesForm = props => {
                     <label>Date</label>
                     <input
                         control='text'
-                        type='number'
+                        type='text'
                         placeholder='Date'
                         name='date'
                         onChange={handleChange} />
