@@ -13,7 +13,7 @@ const useForm = callback => {
 		try {
 			setLoading(true)
 			setError(false)
-			callback();
+			callback()
 		}
 		catch{ }
 	};

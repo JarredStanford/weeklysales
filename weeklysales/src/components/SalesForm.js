@@ -2,12 +2,12 @@ import React from 'react'
 import firebase from './firebase'
 import useForm from "./utils/useForm";
 
-import { Table, Input } from 'semantic-ui-react'
+import { Form, Button, Icon } from 'semantic-ui-react'
 
-const SalesForm = () => {
+const SalesForm = props => {
 
     //Imports form custom hook to handle state, form entry and form submission.
-    const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage, setValues } = useForm(insertRecord);
+    const { values, handleChange, handleSubmit, setError, setLoading } = useForm(insertRecord);
 
     async function insertRecord() {
         try {
@@ -17,10 +17,10 @@ const SalesForm = () => {
                 amount: Number(values.amount),
                 notes: values.notes || ''
             }
-            console.log(newRecord)
             const db = firebase.firestore()
             const apple = db.collection('sales').add(newRecord)
             setLoading(false)
+            props.setNewCell(false)
         }
         catch {
             setError(true)
@@ -28,38 +28,45 @@ const SalesForm = () => {
         }
     }
 
-    console.log(values)
-
     return (
-        <Table.Row >
-            <Table.Cell>
-                <Input
-                    transparent
-                    type='number'
-                    placeholder='enter year...'
-                    name='year'
-                    onChange={handleChange} />
-            </Table.Cell>
-            <Table.Cell>
-                <Input
-                    transparent
-                    type='number'
-                    placeholder='enter week...'
-                    name='week'
-                    onChange={handleChange} />
-            </Table.Cell>
-            <Table.Cell>
-                <Input
-                    transparent
-                    type='number'
-                    placeholder='enter amount...'
-                    name='amount'
-                    onChange={handleChange} />
-            </Table.Cell>
-            <Table.Cell>
-                <button onClick={handleSubmit}>Hi</button>
-            </Table.Cell>
-        </Table.Row>
+        <Form onSubmit={handleSubmit}>
+            <Form.Group inline>
+                <Form.Field>
+                    <label>Year</label>
+                    <input
+                        control='text'
+                        type='number'
+                        placeholder='Year'
+                        name='year'
+                        onChange={handleChange} />
+                </Form.Field>
+                <Form.Field>
+                    <label>Date</label>
+                    <input
+                        control='text'
+                        type='number'
+                        placeholder='Date'
+                        name='date'
+                        onChange={handleChange} />
+                </Form.Field>
+
+                <Form.Field>
+                    <label>Amount</label>
+                    <input
+                        control='text'
+                        type='number'
+                        placeholder='Amount'
+                        name='amount'
+                        onChange={handleChange} />
+                </Form.Field>
+                <Button animated='vertical' positive>
+                    <Button.Content visible>Add</Button.Content>
+                    <Button.Content hidden>
+                        <Icon name='check circle' />
+                    </Button.Content>
+                </Button>
+            </Form.Group>
+        </Form>
     )
 }
 
