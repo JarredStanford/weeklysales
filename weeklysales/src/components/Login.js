@@ -10,7 +10,7 @@ import { withRouter, Redirect } from 'react-router-dom';
 const Login = ({ history }) => {
 
     //Imports form custom hook to handle state, form entry and form submission.
-    const { values, handleChange, handleSubmit, setError, setLoading, SubmitButton, ErrorMessage } = useForm(login);
+    const { values, handleChange, handleSubmit, SubmitButton, ErrorMessage } = useForm(login);
 
     async function login() {
         try {

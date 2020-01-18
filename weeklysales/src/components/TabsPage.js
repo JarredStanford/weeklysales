@@ -2,12 +2,11 @@ import React from 'react'
 
 import firebase from './firebase'
 
-import PivotTable from './PivotTable'
 import Chart from './Chart'
-import Dashboard from './Dashboard'
 import SemanticTable from './SemanticTable'
 
-import { Tablist, Tab, Pane, Paragraph } from 'evergreen-ui'
+import { Tablist, Tab, Pane } from 'evergreen-ui'
+import { Button, Icon } from 'semantic-ui-react'
 
 const TabsPage = () => {
 
@@ -29,7 +28,10 @@ const TabsPage = () => {
                             {tab}
                         </Tab>
                     ))}
-                    <button onClick={() => firebase.auth().signOut()}>Sign Out</button>
+                    <Button negative onClick={() => firebase.auth().signOut()} animated='fade'>
+                        <Button.Content visible>Sign Out</Button.Content>
+                        <Button.Content hidden><Icon name='sign-out' /></Button.Content>
+                    </Button>
                 </Tablist>
             </div>
             <div>

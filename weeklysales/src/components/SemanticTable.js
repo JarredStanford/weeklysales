@@ -1,9 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import firebase from 'firebase'
 
+//Components
 import SalesForm from './SalesForm'
 
-import { Table, Loader, Form } from 'semantic-ui-react'
+//Styles
+import { Table, Loader, Form, Button, Icon } from 'semantic-ui-react'
+import styled from 'styled-components'
 
 
 const SemanticTable = () => {
@@ -13,7 +16,8 @@ const SemanticTable = () => {
     const [year, setYear] = useState()
     const [filteredSales, setFilteredSales] = useState()
 
-    React.useEffect(() => {
+    //Realtime Firebase connection to load updates to the sales collection automatically.
+    useEffect(() => {
 
         const unsubscribe = firebase.firestore()
             .collection('sales').onSnapshot(snapshot => {
@@ -26,7 +30,8 @@ const SemanticTable = () => {
 
     }, [])
 
-    React.useEffect(() => {
+    //Filters Sales based on the chosen year.
+    useEffect(() => {
         if (year) {
             setFilteredSales(sales.filter(sale => sale.year === year))
         } else { setFilteredSales(sales) }
@@ -40,41 +45,49 @@ const SemanticTable = () => {
     if (!filteredSales) return <Loader />
 
     return (
-        <>
-            <button onClick={() => toggleNewCell()}>New Cell</button>
+        <TableContainer>
+            <Button positive onClick={() => toggleNewCell()}><Icon name='plus' />New Week</Button>
+            <FormContainer>
+                {newCell && <SalesForm setNewCell={setNewCell} />}
+            </FormContainer>
+
+            <Form>
+                <Form.Group inline>
+                    <Form.Field onChange={(e) => setYear(Number(e.target.value))} control='select' name='year' label='Year'>
+                        <option value={null} />
+                        <option value={2017}>2017</option>
+                        <option value={2018}>2018</option>
+                        <option value={2019}>2019</option>
+                    </Form.Field>
+                </Form.Group>
+            </Form>
+
 
             <Table compact>
                 <Table.Header>
                     <Table.Row>
-                        <Table.HeaderCell>
-                            <Form>
-                                <Form.Field onChange={(e) => setYear(Number(e.target.value))} control='select' name='year'>
-                                    <option value={null} />
-                                    <option value={2017}>2017</option>
-                                    <option value={2018}>2018</option>
-                                    <option value={2019}>2019</option>
-                                </Form.Field>
-                            </Form>
-                        </Table.HeaderCell>
-                        <Table.HeaderCell>Week</Table.HeaderCell>
+                        <Table.HeaderCell>Date</Table.HeaderCell>
                         <Table.HeaderCell>Amount</Table.HeaderCell>
-                        <Table.HeaderCell />
                     </Table.Row>
                 </Table.Header>
 
                 <Table.Body>
-                    {newCell && <SalesForm setNewCell={setNewCell} />}
                     {filteredSales.map(sale => (
                         <Table.Row key={Math.random()}>
-                            <Table.Cell>{sale.year}</Table.Cell>
-                            <Table.Cell>{sale.week}</Table.Cell>
-                            <Table.Cell>{sale.amount}</Table.Cell>
+                            <Table.Cell>{sale.date}</Table.Cell>
+                            <Table.Cell>${sale.amount}</Table.Cell>
                         </Table.Row>
                     ))}
                 </Table.Body>
             </Table>
-        </>
+        </TableContainer>
     )
 }
 
 export default SemanticTable
+
+const TableContainer = styled.div`
+padding: 5%`
+
+const FormContainer = styled.div`
+padding: 1%`
