@@ -1,7 +1,5 @@
 import React, { useState, useEffect } from 'react'
 import firebase from 'firebase'
-import Moment from 'react-moment'
-import moment from 'moment'
 
 //Components
 import SalesForm from './SalesForm'
@@ -26,7 +24,7 @@ const SemanticTable = () => {
         const unsubscribe = firebase.firestore()
             .collection('sales').onSnapshot(snapshot => {
                 const sales = []
-                snapshot.forEach(doc => sales.push(doc.data()))
+                snapshot.forEach(doc => sales.push({ id: doc.id, ...doc.data() }))
                 setSales(sales)
             })
 
@@ -51,14 +49,14 @@ const SemanticTable = () => {
     return (
         <TableContainer>
             <Button positive onClick={() => toggleNewCell()}><Icon name='plus' />New Week</Button>
-            <Moment>{Date.now()}</Moment>
+
             <FormContainer>
-                {newCell && <SalesForm setNewCell={setNewCell} />}
+                {newCell && <SalesForm setNewCell={setNewCell} sales={sales} />}
             </FormContainer>
 
             <YearSelector setYear={setYear} />
 
-            <SalesTable filteredSales={filteredSales} />
+            <SalesTable filteredSales={filteredSales} sales={sales} />
         </TableContainer>
     )
 }
