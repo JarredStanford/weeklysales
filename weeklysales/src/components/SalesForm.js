@@ -14,8 +14,13 @@ const SalesForm = props => {
         try {
             //Finds current week and year.
             const date = Date.now()
+
+            //Sets week to the current week minus 1 because sales are entered the week after they occur.
             const week = moment(date).week() - 1
             const year = moment(date).year()
+
+            //When reporting sales during the first week of the year, this will accurately change the reported date to the final week of the prior year.
+            if (week === 0) { return week === 52 && year - 1 }
 
             //Calculates year over year growth.
             const yoy = props.sales.find(sale => sale.id = `${year - 1}${week}`)

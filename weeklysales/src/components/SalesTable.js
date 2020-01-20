@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 
-import { Table, Popup, Icon, Portal } from 'semantic-ui-react'
+import { Table, Popup, Icon } from 'semantic-ui-react'
 
 const SalesTable = props => {
 
