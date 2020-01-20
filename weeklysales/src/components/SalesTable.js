@@ -1,11 +1,11 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 
-import { Table } from 'semantic-ui-react'
+import { Table, Popup, Icon, Portal } from 'semantic-ui-react'
 
 const SalesTable = props => {
 
     const [column, setColumn] = React.useState('week')
-    const [direction, setDirection] = React.useState('descending')
+    const [direction, setDirection] = React.useState('ascending')
 
     const reorder = clickedColumn => {
 
@@ -26,14 +26,20 @@ const SalesTable = props => {
     }
 
     const handleSort = clickedColumn => {
-        if (column !== clickedColumn) setColumn(clickedColumn)
+
+        if (column !== clickedColumn) { setColumn(clickedColumn) }
 
         setDirection(direction === 'ascending' ? 'descending' : 'ascending')
+
         reorder(clickedColumn)
     }
 
+    useEffect(() => {
+        handleSort('week')
+    }, [props.filteredSales])
+
     return (
-        <Table compact sortable celled fixed>
+        <Table striped sortable celled fixed>
             <Table.Header>
                 <Table.Row>
                     <Table.HeaderCell
@@ -51,6 +57,7 @@ const SalesTable = props => {
                         onClick={() => handleSort('yoyChange')}>
                         YOY %
                     </Table.HeaderCell>
+                    <Table.HeaderCell />
                 </Table.Row>
             </Table.Header>
 
@@ -58,11 +65,19 @@ const SalesTable = props => {
                 {props.filteredSales.map(sale => (
                     <Table.Row key={sale.id}>
                         <Table.Cell>{sale.week}</Table.Cell>
-                        <Table.Cell>${sale.amount.toFixed(2)}</Table.Cell>
+                        <Table.Cell textAlign='right'>{sale.amount.toLocaleString(undefined, { style: 'currency', currency: 'USD' })}</Table.Cell>
                         <Table.Cell
-                            positive={sale.yoyChange && sale.yoyChange > 0 ? true : false}
-                            negative={sale.yoyChange && sale.yoyChange < 0 ? true : false}>
+                            textAlign='right'
+                            positive={sale.yoyChange && sale.yoyChange > 0}
+                            negative={sale.yoyChange && sale.yoyChange < 0}>
                             {sale.yoyChange && sale.yoyChange.toFixed(2) + '%'}
+                        </Table.Cell>
+                        <Table.Cell>
+                            {sale.notes && (
+                                <Popup trigger={<Icon name='sticky note' />}>
+                                    {sale.notes}
+                                </Popup>
+                            )}
                         </Table.Cell>
                     </Table.Row>
                 ))}
