@@ -8,16 +8,6 @@ const PrivateRoute = ({ component: RouteComponent, ...rest }) => {
 
     const { currentUser } = React.useContext(AuthContext)
 
-    if (!currentUser) {
-        return (
-            <Dimmer active>
-                <Loader>
-                    Loading...
-                </Loader>
-            </Dimmer>
-        )
-    }
-
     return (
         <Route
             {...rest}
