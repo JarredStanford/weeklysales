@@ -14,7 +14,7 @@ const SalesForm = props => {
         try {
             //Finds current week and year.
             const date = Date.now()
-            const week = moment(date).week()
+            const week = moment(date).week() - 1
             const year = moment(date).year()
 
             //Calculates year over year growth.
