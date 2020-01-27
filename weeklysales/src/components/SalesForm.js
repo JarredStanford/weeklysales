@@ -25,6 +25,10 @@ const SalesForm = props => {
             //Calculates year over year growth.
             const yoy = props.sales.find(sale => sale.id = `${year - 1}${week}`)
             const yoyChange = (Number(values.amount) - yoy.amount) / yoy.amount * 100
+            
+            console.log(yoy)
+            console.log(week)
+            console.log(yoyChange)
 
             //Record to be added to DB.
             const newRecord = {
