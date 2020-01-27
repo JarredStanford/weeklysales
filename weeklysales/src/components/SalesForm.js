@@ -23,7 +23,7 @@ const SalesForm = props => {
             if (week === 0) { return week === 52 && year - 1 }
 
             //Calculates year over year growth.
-            const yoy = props.sales.find(sale => sale.id = `${year - 1}${week}`)
+            const yoy = props.sales.find(sale => sale.id === `${year - 1}${week}`)
             const yoyChange = (Number(values.amount) - yoy.amount) / yoy.amount * 100
             
             console.log(yoy)
