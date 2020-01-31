@@ -36,6 +36,8 @@ const SalesForm = props => {
                 timestamp: date
             }
 
+            console.log(newRecord)
+
             //Checks to see if the record for the current week has already been set.
             const db = firebase.firestore()
             const checkIfRecordExists = db.collection('sales').doc(`${year}${week}`).get()
