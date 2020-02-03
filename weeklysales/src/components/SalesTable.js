@@ -1,11 +1,12 @@
 import React, { useEffect } from 'react'
 
-import { Table, Popup, Icon } from 'semantic-ui-react'
+import { Table, Popup, Icon, Modal, Header, Input } from 'semantic-ui-react'
 
 const SalesTable = props => {
 
     const [column, setColumn] = React.useState('week')
     const [direction, setDirection] = React.useState('ascending')
+    const [modal, setModal] = React.useState(false)
 
     const reorder = clickedColumn => {
 
@@ -37,6 +38,10 @@ const SalesTable = props => {
     useEffect(() => {
         handleSort('week')
     }, [props.filteredSales])
+
+    const addNote = () => {
+
+    }
 
     return (
         <Table striped sortable celled fixed>
@@ -72,12 +77,16 @@ const SalesTable = props => {
                             negative={sale.yoyChange && sale.yoyChange < 0}>
                             {sale.yoyChange && sale.yoyChange.toFixed(2) + '%'}
                         </Table.Cell>
-                        <Table.Cell>
-                            {sale.notes && (
-                                <Popup trigger={<Icon name='sticky note' />}>
-                                    {sale.notes}
-                                </Popup>
-                            )}
+                        <Table.Cell style={{ display: 'flex', justifyContent: 'space-between' }}>
+                            <Modal trigger={<Icon name='add square' color='green' />} basic size='small'>
+                                <Header content='Add notes?' />
+                                <Modal.Content>
+                                    <Input />
+                                </Modal.Content>
+                            </Modal>
+                            {sale.notes
+                                ? <Popup trigger={<Icon name='sticky note' />}> {sale.notes} </Popup>
+                                : <></>}
                         </Table.Cell>
                     </Table.Row>
                 ))}
