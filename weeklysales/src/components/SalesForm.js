@@ -23,7 +23,7 @@ const SalesForm = props => {
             if (week === 0) { return week === 52 && year - 1 }
 
             //Calculates year over year growth.
-            const yoy = props.sales.find(sale => sale.id = `${year - 1}${week}`)
+            const yoy = props.sales.find(sale => sale.id === `${year - 1}${week}`)
             const yoyChange = (Number(values.amount) - yoy.amount) / yoy.amount * 100
 
             //Record to be added to DB.
@@ -35,6 +35,8 @@ const SalesForm = props => {
                 yoyChange: yoyChange,
                 timestamp: date
             }
+
+            console.log(newRecord)
 
             //Checks to see if the record for the current week has already been set.
             const db = firebase.firestore()
