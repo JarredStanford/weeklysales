@@ -35,13 +35,10 @@ const SalesTable = props => {
         reorder(clickedColumn)
     }
 
+    //Sorts table by week on component load.
     useEffect(() => {
         handleSort('week')
     }, [props.filteredSales])
-
-    const addNote = () => {
-
-    }
 
     return (
         <Table striped sortable celled fixed>
