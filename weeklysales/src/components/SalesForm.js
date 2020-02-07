@@ -40,7 +40,7 @@ const SalesForm = props => {
 
             //Checks to see if the record for the current week has already been set.
             const db = firebase.firestore()
-            const checkIfRecordExists = db.collection('sales').doc(`${year}${week}`).get()
+            const checkIfRecordExists = await db.collection('sales').doc(`${year}${week}`).get()
 
             if (!checkIfRecordExists.exists) db.collection('sales').doc(`${year}${week}`).set(newRecord)
 
