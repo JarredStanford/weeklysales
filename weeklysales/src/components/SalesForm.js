@@ -33,7 +33,8 @@ const SalesForm = props => {
                 amount: Number(values.amount),
                 notes: values.notes || '',
                 yoyChange: yoyChange,
-                timestamp: date
+                timestamp: date,
+                grossProfit: Number(values.grossProfit) || ''
             }
 
             console.log(newRecord)
@@ -66,6 +67,16 @@ const SalesForm = props => {
                         min='0'
                         placeholder='Amount'
                         name='amount'
+                        onChange={handleChange} />
+                </Form.Field>
+                <Form.Field>
+                    <label>Gross Profit</label>
+                    <input
+                        type='number'
+                        step='.01'
+                        min='0'
+                        placeholder='Gross Profit'
+                        name='grossProfit'
                         onChange={handleChange} />
                 </Form.Field>
                 <Button animated='vertical' positive>
