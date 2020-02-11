@@ -59,6 +59,11 @@ const SalesTable = props => {
                         onClick={() => handleSort('yoyChange')}>
                         YOY %
                     </Table.HeaderCell>
+                    <Table.HeaderCell
+                        sorted={column === 'grossProfit' ? direction : null}
+                        onClick={() => handleSort('grossProfit')}>
+                        GP%
+                    </Table.HeaderCell>
                     <Table.HeaderCell />
                 </Table.Row>
             </Table.Header>
@@ -74,6 +79,7 @@ const SalesTable = props => {
                             negative={sale.yoyChange && sale.yoyChange < 0}>
                             {sale.yoyChange && sale.yoyChange.toFixed(2) + '%'}
                         </Table.Cell>
+                        <Table.Cell>{sale.grossProfit && sale.grossProfit + '%'}</Table.Cell>
                         <Table.Cell style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <NoteAdder id={sale.id} />
                             {sale.notes && <Popup trigger={<Icon name='sticky note' />}> {sale.notes} </Popup>}
