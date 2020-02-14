@@ -189,8 +189,8 @@ const Chart = props => {
 
     const chartConfigs = {
         type: 'msline',
-        width: '800',
-        height: '600',
+        width: '90%',
+        height: '500',
         dataFormat: 'json',
         dataSource: source
     }
