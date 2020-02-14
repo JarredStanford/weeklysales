@@ -62,7 +62,7 @@ const SalesTable = props => {
                     <Table.HeaderCell
                         sorted={column === 'grossProfit' ? direction : null}
                         onClick={() => handleSort('grossProfit')}>
-                        GP%
+                        GP %
                     </Table.HeaderCell>
                     <Table.HeaderCell />
                 </Table.Row>
