@@ -79,7 +79,7 @@ const SalesTable = props => {
                             negative={sale.yoyChange && sale.yoyChange < 0}>
                             {sale.yoyChange && sale.yoyChange.toFixed(2) + '%'}
                         </Table.Cell>
-                        <Table.Cell>{sale.grossProfit && sale.grossProfit + '%'}</Table.Cell>
+                        <Table.Cell textAlign='right'>{sale.grossProfit && sale.grossProfit + '%'}</Table.Cell>
                         <Table.Cell style={{ display: 'flex', justifyContent: 'space-between' }}>
                             <NoteAdder id={sale.id} />
                             {sale.notes && <Popup trigger={<Icon name='sticky note' />}> {sale.notes} </Popup>}
