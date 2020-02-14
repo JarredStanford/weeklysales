@@ -5,6 +5,7 @@ import firebase from './firebase'
 import SalesForm from './SalesForm'
 import YearSelector from './YearSelector'
 import SalesTable from './SalesTable'
+import Chart from './Chart'
 
 //Styles
 import { Loader, Button, Icon, Statistic } from 'semantic-ui-react'
@@ -17,6 +18,7 @@ const SemanticTable = () => {
     const [newCell, setNewCell] = useState(false)
     const [year, setYear] = useState(2020)
     const [filteredSales, setFilteredSales] = useState()
+    const [data, setData] = useState([])
 
     //Realtime Firebase connection to load updates to the sales collection automatically.
     useEffect(() => {
@@ -44,10 +46,62 @@ const SemanticTable = () => {
         setNewCell(!newCell)
     }
 
+    //Sorts sales data into an array so Fusion Charts can read it.
+    useEffect(() => {
+
+        const chartData = [
+            {
+                'seriesname': '2018',
+                'data': []
+            },
+            {
+                'seriesname': '2019',
+                'data': []
+            },
+            {
+                'seriesname': '2020',
+                'data': []
+            }
+        ]
+
+        if (sales) {
+            sales.map((sale) => {
+
+                const { week, year, amount } = sale
+
+
+                if (year === 2018) {
+                    return (
+                        chartData[0]['data'].push({
+                            'label': `Week ${week}`,
+                            'value': amount.toString()
+                        })
+                    )
+                } else if (year === 2019) {
+                    return (
+                        chartData[1]['data'].push({
+                            'label': `Week ${week}`,
+                            'value': amount.toString()
+                        })
+                    )
+                } else {
+                    chartData[2]['data'].push({
+                        'label': `Week ${week}`,
+                        'value': amount.toString()
+                    })
+                }
+            })
+        }
+
+        setData(chartData)
+
+    }, [sales])
+
     if (!filteredSales) return <Loader />
 
     //Calculates total for all weeks of the selected year and converts it to USD formatting.
     const yearlyTotal = filteredSales.reduce((a, b) => a + b['amount'], 0).toLocaleString(undefined, { style: 'currency', currency: 'USD' })
+
 
     return (
         <TableContainer>
@@ -73,6 +127,7 @@ const SemanticTable = () => {
             </Stats>
 
             <SalesTable filteredSales={filteredSales} sales={sales} year={year} />
+            <Chart data={data} />
         </TableContainer>
     )
 }
@@ -83,7 +138,7 @@ const TableContainer = styled.div`
         padding: 5%`
 
 const FormContainer = styled.div`
-padding: 1%`
+        padding: 1%`
 
 const Stats = styled.div`
 display: flex;
