@@ -61,6 +61,10 @@ const SemanticTable = () => {
             {
                 'seriesname': '2020',
                 'data': []
+            },
+            {
+                'seriesname': '2021',
+                'data': []
             }
         ]
 
